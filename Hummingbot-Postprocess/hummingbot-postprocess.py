@@ -45,7 +45,7 @@ exchange = BtcMarketsClient("https://api.btcmarkets.net/")
     
 # Fetching data from exchange
 lim, candlestick_interval = calc_candlestick_interval(start_time) 
-# exchange = eval("ccxt." + exchange +"()")
+
 bars = exchange.get_candlesticks(market, timeframe=candlestick_interval, start=start_time.isoformat()+"Z", end=datetime.now().isoformat()+"Z",  limit=lim)
 
 df_bars = pd.DataFrame(bars[:-1], columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])

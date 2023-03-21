@@ -48,7 +48,6 @@ class BtcMarketsClient(BaseRestApi):
         params = {"timeWindow": timeframe, "from": start, "to": end, "limit": limit, }
         if kwargs:
             params.update(kwargs)
-        print(f"params: {params}")
         path = CONSTANTS.CANDLESTICK_URL.replace('#marketId#', marketId)
 
         return self._request("GET", path, params=params, auth=False)
