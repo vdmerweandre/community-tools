@@ -10,9 +10,9 @@ from btc_markets_client import BtcMarketsClient
 # Enter/modify the following: 
 exchange = 'btc_markets'
 market = 'BTC-AUD'
-start_time = datetime(2023, 3, 19, 0, 0, 0) #Year, Month, Day, Hour, Minute, Second
-trades_path = '../../hummingbot/data/trades_conf_pure_mm_Btc.csv'
-fees_percent = 0.88
+start_time = datetime(2023, 3, 17, 0, 0, 0) #Year, Month, Day, Hour, Minute, Second
+trades_path = '../../hummingbot/data/trades_btc_bin_BTC-AUD_xemm_1.csv'
+fees_percent = 0.0
 
 # Automatic calcualtion of candlestick interval
 def calc_candlestick_interval(start_time, max_limit=500):
@@ -53,14 +53,11 @@ df_bars['timestamp'] = pd.to_datetime(df_bars['timestamp'], format='%Y-%m-%dT%H:
 df_bars = df_bars[df_bars['timestamp'] > start_time]
 float_columns = ["open", "high", "low", "close", "volume"]
 df_bars[float_columns] = df_bars[float_columns].apply(pd.to_numeric)
-print(f"df_bars {df_bars}")
 
 # Fetching local hummingbot trade data
 df_trades = pd.read_csv(trades_path, usecols=['amount','price','timestamp','trade_fee','trade_type'])
 df_trades['timestamp'] = pd.to_datetime(df_trades['timestamp'], unit='ms')
-print(f"df_trades {df_trades}")
 df_trades = df_trades[df_trades['timestamp'] > start_time]
-print(f"df_trades2 {df_trades}")
 
 # Postprocessing
 buy_trades = df_trades[df_trades['trade_type']=="BUY"]
